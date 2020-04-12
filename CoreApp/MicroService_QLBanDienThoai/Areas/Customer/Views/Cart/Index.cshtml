@@ -1,0 +1,443 @@
+﻿
+@model List<MicroService_QLBanDienThoai.Areas.Customer.Models.ViewCart>
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "GioHang";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@if (ViewBag.Login != null)
+{
+    <script>alert(@ViewBag.Login)</script>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SNKRX - Giỏ Hàng</title>
+    <!--/tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Elite Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+        Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--//tags -->
+    <link href="~/maintemplate/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/maintemplate/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/maintemplate/css/font-awesome.css" rel="stylesheet">
+    <link href="~/maintemplate/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/maintemplate/css/fix.css" rel="stylesheet" type='text/css' />
+    <!-- //for bootstrap working -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container-fluid bg_giohang">
+        <div class="container">
+            <div class="header_giohang">
+                <div class="checkbox_giohang">
+                    <div class="checkboxFive">
+                        <input type="checkbox" id="c1" name="" />
+                        <label for="c1"></label>
+                    </div>
+                </div>
+                <div class="sanpham_giohang">
+                    <h5>Sản Phẩm</h5>
+                </div>
+                <div class="dongia_giohang">
+                    <h5>Đơn Giá</h5>
+                </div>
+                <div class="soluong_giohang">
+                    <h5>Số Lượng</h5>
+                </div>
+                <div class="thanhtien_giohang">
+                    <h5>Thành Tiền</h5>
+                </div>
+                <div class="thaotac_giohang">
+                    <h5>Thao Tác</h5>
+                </div>
+            </div>
+
+            <br />
+            <div class="cart_theoshop">
+                @{ decimal sum_total = 0;}
+                @{if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div id="@item.Product_Id.ProductId">
+                                <div class="cart_theoshop_item">
+                                    <div class="checkbox_giohang">
+                                        <div class="checkboxFive">
+                                            <input type="checkbox" id="c3" name="" />
+                                            <label for="c3"></label>
+                                        </div>
+                                    </div>
+                                    <div class="sanpham_giohang">
+                                        <input type="text" value="@item.Product_Id.ProductId" class="txt-id-sanpham" hidden readonly />
+                                        <div class="hinh_sanpham_giohang" style="background-image:url(/HinhSanPham/@item.Product_Id.Image);"></div>
+                                        <div class="form_ten_sp_giohang">
+                                            <h5>@item.Product_Id.Name</h5>
+                                        </div>
+                                    </div>
+                                    <div class="dongia_giohang">
+                                        @item.Product_Id.Price
+                                    </div>
+                                    <div class="soluong_giohang">
+                                        <div class="tang_soluong">
+                                            <input class="soluong" id="quan@{@item.Product_Id.ProductId}" onkeyup="checkquantity(this.value,@item.Product_Id.Quantity)" type="text" value="@item.quantity">
+                                        </div>
+                                    </div>
+                                    <div class="thanhtien_giohang" id="total_mount">
+                                        @{ decimal sum = item.Product_Id.Price * item.quantity; sum_total += sum;}
+                                        @sum
+                                    </div>
+                                    <div class="thaotac_giohang">
+                                        <button class="button-sua" onclick="updateProduct(@item.Product_Id.ProductId,@item.quantity,$('#quan'+@{@item.Product_Id.ProductId}).val())" type="submit"><i class="fa fa-edit"></i></button>
+                                        <button class="button-xoa" onclick="removeProduct(@item.Product_Id.ProductId,@item.quantity);" type="submit"><i class="fa-remove fa"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                <br />
+                <div class="form_tongtien z-index-giohang">
+                    <div class="checkbox_giohang checkbox_fix">
+                        <div class="checkboxFive">
+                            <input type="checkbox" id="c8" name="" />
+                            <label for="c8"></label>
+                        </div>
+                    </div>
+                    <div class="sanpham_giohang chon_all">
+                        <h5>Chọn tất cả sản phẩm</h5>
+                    </div>
+                    <div class="tong_giatien">
+                        <h4>Tổng tiền: </h4>
+                        <h2>@sum_total</h2>
+                    </div>
+                    <div class="button-muahang">
+                        <button class="btn-muahang" id="btnMuaHang">Thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal1 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body modal-body-sub_agile">
+                        <div class="col-md-8 modal_body_left modal_body_left1">
+                            <h3 class="agileinfo_sign">Đăng Nhập</h3>
+                            <form asp-area="Customer" asp-controller="Authentication" asp-action="LogIn" method="post">
+                                <div class="styled-input agile-styled-input-top">
+                                    <input type="text" name="tendangnhap" required oninvalid="this.setCustomValidity('Tên đăng nhập không được để trống')" onchange="this.setCustomValidity('')">
+                                    <label>Tên đăng nhập</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="password" name="matkhau" required oninvalid="this.setCustomValidity('Mật khẩu không được để trống')" onchange="this.setCustomValidity('')">
+                                    <label>Mật khẩu</label>
+                                    <span></span>
+                                </div>
+                                <input type="submit" value="Đăng Nhập">
+                            </form>
+                            <ul class="social-nav model-3d-0 footer-social w3_agile_social top_agile_third">
+                                <li>
+                                    <a href="#" class="facebook">
+                                        <div class="front"><i class="fa fa-facebook" aria-hidden="true"></i></div>
+                                        <div class="back"><i class="fa fa-facebook" aria-hidden="true"></i></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="twitter">
+                                        <div class="front"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+                                        <div class="back"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="instagram">
+                                        <div class="front"><i class="fa fa-instagram" aria-hidden="true"></i></div>
+                                        <div class="back"><i class="fa fa-instagram" aria-hidden="true"></i></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="pinterest">
+                                        <div class="front"><i class="fa fa-linkedin" aria-hidden="true"></i></div>
+                                        <div class="back"><i class="fa fa-linkedin" aria-hidden="true"></i></div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <p><a href="#" data-toggle="modal" data-target="#myModal2"> Chưa có tài khoản đăng nhập?</a></p>
+                            <p><a href="#" data-toggle="modal" data-target="#forgotModal"> Quên mật khẩu?</a></p>
+                        </div>
+                        <div class="col-md-4 modal_body_right modal_body_right1">
+                            <img src="~/maintemplate/images/log_pic.jpg" alt=" " />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- //Modal content-->
+            </div>
+        </div>
+        <!-- //Modal1 -->
+        <!-- Modal2 -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header modal-header-margin">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body modal-body-sub_agile">
+                        <div class="col-md-8 modal_body_left modal_body_left1">
+                            <h3 class="agileinfo_sign">Đăng Ký</h3>
+                            <form asp-area="Customer" asp-controller="TaiKhoan" asp-action="CreateTaiKhoan" method="post">
+                                <div class="styled-input agile-styled-input-top">
+                                    <input type="text" name="tendangnhap" pattern=".{8,}" required oninvalid="this.setCustomValidity('Tên đăng nhập chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                    <label>Tên đăng nhập</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="password" name="matkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                    <label>Mật khẩu</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="password" name="confirmmatkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                    <label>Xác nhận mật khẩu</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="text" name="ten" required oninvalid="this.setCustomValidity('Cần điền vào họ tên')" onchange="this.setCustomValidity('')">
+                                    <label>Tên</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="email" name="email" required oninvalid="this.setCustomValidity('Email không đúng định dạng')" onchange="this.setCustomValidity('')">
+                                    <label>Email</label>
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <input type="text" name="dienthoai" id="txtDienThoai" pattern=".{10,12}" required oninvalid="this.setCustomValidity('Số điện thoại chứa 10 - 12 ký tự')" onchange="this.setCustomValidity('')">
+                                    <label>Số điện thoại</label>
+                                    <span></span>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" id="chkDangKy" required oninvalid="this.setCustomValidity('Để đồng ý cần phải đồng ý với các điều khoản')" onchange="this.setCustomValidity('')"><p><a>Tôi đã đồng ý với các điều khoản khi bấm đăng ký</a></p>
+                                </div>
+                                <input type="submit" value="Đăng Ký">
+                                <br />
+                            </form>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-4 modal_body_right modal_body_right1">
+                            <img src="~/maintemplate/images/log_pic.jpg" alt=" " />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- //Modal content-->
+            </div>
+        </div>
+        <!-- //Modal2 -->
+        <!--KHong dung vao-->
+        <form asp-area="Customer" asp-controller="SanPham" asp-action="Cart" asp-route-tendangnhap="@Context.Session.GetString("TenDangNhap")" method="post" id="frmSubmit" class="last">
+            <input id="local-storage" type="text" value="" name="cart" hidden readonly />
+            <button class="w3view-cart" type="submit" id="btnCart" hidden><i class="fa fa-cart-arrow-down" aria-hidden="true" hidden></i></button>
+        </form>
+
+        <!--Khong dung-->
+        <form asp-area="Customer" asp-controller="TaiKhoan" asp-action="DeleteFromCart" id="frmDeleteFromCart2" style="width: 100%;">
+            <input type="text" id="txtDeleteFromCart2" name="idsizesanpham" readonly hidden />
+            <button class="button-xoa" type="submit" hidden>Xoá</button>
+            @*<input type="submit" value="Xoá" class="button-xoa">*@
+        </form>
+</body>
+</html>
+
+<script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+<!-- for bootstrap working -->
+<script type="text/javascript" src="~/maintemplate/js/bootstrap.js"></script>
+<script>
+    function validateNumber(e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    };
+    function removeProduct(pid, quantity) {
+        var data = {
+            id: pid,
+            quantity: quantity,
+        };
+        $.ajax({
+            url: "/Customer/Cart/RemoveProduct",
+            type: "post",
+            data: data,
+            success: function (data) {
+                if (data == "Lỗi giỏ hàng") {
+                    alert("Bạn chưa mua hàng")
+                }
+                if (data == "Xóa thất bại") {
+                    alert("Xóa thất bại")
+                }
+                if (data == "Xoá thành công") {
+                    alert("Xoá thành công")
+                    $('#' + pid).html('');
+                }
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        })
+    }
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        url: "/Customer/Cart/getCartByName",
+    //        success: function (data) {
+    //            alert(data);
+    //            alert(data[0].product_Id.productId)
+    //            var html = '';
+    //            $('#result_cart').html('');
+    //            var result = JSON.parse(data);
+    //            $.each(data, function (i, item)
+    //            {
+    //                alert(item.product_Id.name);
+    //                //html += '<div class="cart_theoshop_item">'
+    //                // html += ' <div class="checkbox_giohang">'
+    //                // html += ' <div class="checkboxFive">'
+    //                // html += '   <input type="checkbox" id="c3" name="" />'
+    //                // html += '           <label for="c3"></label>'
+    //                // html += '          </div>'
+    //                // html += '    </div>'
+    //                // html += '       <div class="sanpham_giohang">'
+    //                // html += '            <input type="text" value="' + item.product_Id.productId + '" class="txt-id-sanpham" hidden readonly />'
+    //                // html += '          <div class="hinh_sanpham_giohang" style="background-image:url(/HinhSanPham/' + item.product_Id.image + ';"></div>'
+    //                // html += '        <div class="form_ten_sp_giohang">'
+    //                // html += '            <h5>' + item.product_Id.name + '</h5>'
+    //                // html += '         </div>'
+    //                // html += '     </div>'
+    //                // html += '      <div class="dongia_giohang">'+item.product_Id.price+'     </div>'
+    //                // html += '     <div class="soluong_giohang">'
+    //                // html += '        <input class="txt-soluong-sizesanpham" type="text" value="' + item.quantity + '" hidden readonly />'
+    //                // html += '       <div class="tang_soluong">'
+    //                // html += '          <button class="button_tanggiam_sl btnGiamSoLuong">'
+    //                // html += '              <i class="fa fa-minus"></i>'
+    //                // html += '           </button>'
+    //                // html += '          <button class="button_tanggiam_sl btnTangSoLuong">'
+    //                // html += '            <i class="fa fa-plus"></i>'
+    //                // html += '         </button>'
+    //                // html += '       </div>'
+    //                // html += '  </div>'
+    //                // html += '    <div class="thanhtien_giohang">'+item.quantity * item.product_Id.price+'    </div>'
+    //                // html += '    <div class="thaotac_giohang">'
+    //                // html += '        <form class="frmDeleteFromCart" style="width: 100%;">'
+    //                // html += '            <input type="text" class="txtIdSizeXoa" name="idsizesanpham" value="" readonly hidden />'
+    //                // html += '           <button class="button-xoa" type="submit">Xoá</button>'
+
+    //                //  html+='       </form>'
+    //                // html += '     </div>'
+    //                // html += '   </div>'
+    //            });
+    //            $('#result_cart').html(html);
+    //        },
+    //        error: function (data) {
+    //            alert("Error: " + data);
+    //        }
+    //    })
+    //})
+    function checkquantity(quantity, check) {
+        if (quantity < 0 || quantity >999 || quantity > check) {
+            alert('số lượng không hợp le')
+            return false;
+        }
+    }
+    function updateProduct(pid, old_quan, new_quan) {
+        if (parseInt(old_quan) == parseInt(new_quan)) {
+            alert('Khong')
+            return false;
+        }
+        if (parseInt(old_quan) > parseInt(new_quan)) {
+            var data = {
+                id: pid,
+                quantity: parseInt(old_quan) - parseInt(new_quan),
+            };
+            $.ajax({
+                url: "/Customer/Cart/RemoveProduct",
+                type: "post",
+                data: data,
+                success: function (data) {
+                    if (data == "Lỗi giỏ hàng") {
+                        alert("Bạn chưa mua hàng")
+                    }
+                    if (data == "Xóa thất bại") {
+                        alert("Cập nhập thất bại")
+                    }
+                    if (data == "Xoá thành công") {
+                        alert("Cập nhập thành công")
+                        location.href = "@Url.Action("Index", "Cart")";
+                    }
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            })
+        }
+        else {
+            var data = {
+                id: pid,
+                quantity: parseInt(new_quan) - parseInt(old_quan)
+            }
+            $.ajax({
+                url: "/Customer/SanPham/AddCart",
+                type: "post",
+                data: data,
+                success: function (data) {
+                    if (data == "Them Thanh Cong") {
+                        alert("Cập nhập thành công")
+                        location.href = "@Url.Action("Index", "Cart")";
+                    }
+                    if (data == "Them that bai") {
+                        alert("Cập nhật thất bại")
+                    }
+                    if (data == "-1") {
+                        alert("Số lượng không phù hợp")
+                    }
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            })
+        }
+    }
+    $('#btnMuaHang').click(function (e) {
+        e.preventDefault();
+        location.href = "@Url.Action("Checkout","Cart")";
+    })
+
+</script>

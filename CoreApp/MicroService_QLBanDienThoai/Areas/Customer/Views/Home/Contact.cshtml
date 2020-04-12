@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="page-head_agile_info_w3l">
+    <div class="container">
+        <h3>liên hệ</h3>
+        <!--/w3_short-->
+        <div class="services-breadcrumb">
+            <div class="agile_inner_breadcrumb">
+
+                <ul class="w3_short">
+                    <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Trang Chủ</a><i>|</i></li>
+                    <li>Liên Hệ</li>
+                </ul>
+            </div>
+        </div>
+        <!--//w3_short-->
+    </div>
+</div>
+
+<div class="banner_bottom_agile_info">
+    <div class="container">
+        <div class="contact-grid-agile-w3s">
+            <div class="col-md-4 contact-grid-agile-w3">
+                <div class="contact-grid-agile-w31">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <h4>Địa Chỉ</h4>
+                    <p>273 An Dương Vương P.3 Q.5 TP.HCM @*<span>TP.HCM, Việt Nam.</span>*@</p>
+                </div>
+            </div>
+            <div class="col-md-4 contact-grid-agile-w3">
+                <div class="contact-grid-agile-w32">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <h4>Số điện thoại</h4>
+                    <p>+84 938 952 947@*<span>+1273 748 730</span>*@</p>
+                </div>
+            </div>
+            <div class="col-md-4 contact-grid-agile-w3">
+                <div class="contact-grid-agile-w33">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    <h4>Email</h4>
+                    <p><a href="#">PHONExemail@gmail.com</a>@*<span><a href="#">snkrxemail@gmail.com</a></span>*@</p>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-w3-agile1 map" data-aos="flip-right">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11086.384495900442!2d106.6819106145527!3d10.763062586144295!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b7c3ed289%3A0xa06651894598e488!2zxJDhuqFpIEjhu41jIFPDoGkgR8Oybg!5e0!3m2!1svi!2s!4v1544784163951" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>

@@ -1,0 +1,439 @@
+﻿@model MicroService_QLBanDienThoai.Models.Product
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@{ 
+    List<MicroService_QLBanDienThoai.Areas.Customer.Models.ViewRating> _list = (List<MicroService_QLBanDienThoai.Areas.Customer.Models.ViewRating>)ViewBag.ViewRating;
+
+    float[,] rating = (float[,])ViewBag.DetailRat;
+}
+@if (Model != null)
+{
+    <!--/single_page-->
+    <!-- /banner_bottom_agile_info -->
+    <div class="page-head_agile_info_w3l">
+        <div class="container">
+            <h3>SẢN <span>PHẨM </span></h3>
+            <!--/w3_short-->
+            <div class="services-breadcrumb">
+                <div class="agile_inner_breadcrumb">
+
+                    <ul class="w3_short">
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Trang Chủ</a><i>|</i></li>
+                        <li>Chi Tiết</li>
+                    </ul>
+                </div>
+            </div>
+            <!--//w3_short-->
+        </div>
+    </div>
+
+    <!-- banner-bootom-w3-agileits -->
+    <div class="banner-bootom-w3-agileits">
+        <div class="container">
+            <div class="col-md-4 single-right-left ">
+                <div class="grid images_3_of_2">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="/HinhSanPham/@Model.Image">
+                                <div class="thumb-image"> <img src="~/HinhSanPham/@Model.Image" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 single-right-left simpleCart_shelfItem">
+                <input id="txtProductID" value="@Model.ProductId" type="hidden">
+                <h3>@Model.Name</h3>
+                <div class="brands-color">
+                    <h5>Giá: @Model.Price.ToString("#,###") đ</h5>
+                </div>
+                <div class="brands-color">
+                    @*<h5>Màu : @Model.Mau</h5>*@
+                </div>
+                <div class="brands-color">
+                    <h5>Kho: @Model.Quantity cái</h5>
+                </div>
+                <div class="brands-color">
+                    @*<h5 class="tieude_h5_single">Size :</h5>*@
+                </div>
+                <div class="brands-color">
+                    <h5 class="tieude_h5_single">Số Lượng:</h5>
+                    <div class="tang_soluong">
+                        <button class="button_tanggiam_sl" id="txtGiamSoLuong">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <input id="txtSoLuong" class="soluong" type="text" value="1">
+                        <button class="button_tanggiam_sl" id="txtTangSoLuong">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="occasion-cart">
+                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                        <form action="#" method="post">
+                            <fieldset>
+                                <input type="hidden" name="cmd" value="_cart">
+                                <input type="hidden" name="add" value="1">
+                                <input type="hidden" name="business" value=" ">
+                                <input type="hidden" name="item_name" value="Wing Sneakers">
+                                <input type="hidden" name="amount" value="650.00">
+                                <input type="hidden" name="discount_amount" value="1.00">
+                                <input type="hidden" name="currency_code" value="USD">
+                                <input type="hidden" name="return" value=" ">
+                                <input type="hidden" name="cancel_return" value=" ">
+
+
+                                <input type="button" name="submit" id="btnThemVaoGioHang" value="Thêm vào giỏ hàng" class="button">
+
+
+                            </fieldset>
+                        </form>
+                    </div>
+                    <p style="color: red; font-size: medium;" id="p-thongbao-hethang" hidden></p>
+                </div>
+
+            </div>
+            <div class="clearfix"> </div>
+            <!-- /new_arrivals -->
+            <div class="responsive_tabs_agileits">
+                <div class="tab">
+                    <button class="tablinks active" onclick="openCity(event, 'Detail')">
+                        Chi tiết sản phẩm
+                    </button>
+                    <button class="tablinks" onclick="openCity(event, 'Rating')">Đánh giá - nhận xét</button>
+                </div>
+                <div id="Detail" class="tabcontent" style="display:block">
+                    <div class="row">
+                        <div id="detail_product" style="padding:15px;">
+                            @Model.Detail
+                        </div>
+                    </div>
+                </div>
+                <div id="Rating" class="tabcontent" style="padding-top:15px;">
+                    <div class="clearfix"></div>
+                    <div class="row" style="padding: 0 15px;">
+                        <div class="col-sm-8">
+                            <div class="rating-block" id="agv_rating">
+                                <h4>Trung bình đánh giá</h4>
+                                <h2 class="bold padding-bottom-7">@ViewBag.AveRat.ToString("#.#") <small>/ 5</small></h2>
+                                @{
+                                    for (int i = 1; i <= ViewBag.AveRat; i++)
+                                    {
+                                        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                    }
+                                    if (ViewBag.AveRat < 5)
+                                    {
+                                        for (int i = (int)ViewBag.AveRat; i < 5; i++)
+                                        {
+                                            <button type="button" class="btn btn-default btn-grey btn-sm"
+                                                    aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            </button>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>Số lượng đánh giá</h4>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                             aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @rating[4,1]%">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">@rating[4,0]</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-primary" role="progressbar"
+                                             aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: @rating[3,1]%">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">@rating[3, 0]</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                             aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: @rating[2,1]%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">@rating[2, 0]</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                                             aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: @rating[1,1]%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">@rating[1, 0]</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar"
+                                             aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: @rating[0,1]%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">@rating[0, 0]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 0 15px;">
+                        <div>
+                            <div class="form-group">
+                                <label>Nhận xét: </label>
+                                <textarea class="form-control" rows="3" id="comment_text"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Đánh giá:</label>
+                                <select class="form-control" id="num_star">
+                                    <option value="5">5 sao</option>
+                                    <option value="4">4 sao</option>
+                                    <option value="3">3 sao</option>
+                                    <option value="2">2 sao</option>
+                                    <option value="1">1 sao</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-info" id="rating_product">Đánh giá</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding: 0 15px;">
+                        <div class="col-sm-12">
+                            <hr />
+                            <div class="review-block">
+                                @{
+                                    foreach (var item in _list)
+                                    {
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <img src="~/images/user.png" class="img-rounded">
+                                                <div class="review-block-name"><a>@item.AccountID</a></div>
+                                                <div class="review-block-date">Đã mua hàng</div>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="review-block-rate">
+                                                    @{
+                                                        for (int i = 1; i <= item.StarRating; i++)
+                                                        {
+                                                            <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                            </button>
+                                                        }
+                                                        if (item.StarRating < 5)
+                                                        {
+                                                            for (int i = (int)item.StarRating; i < 5; i++)
+                                                            {
+                                                                <button type="button" class="btn btn-default btn-grey btn-sm"
+                                                                        aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="review-block-title">Nhận xét:</div>
+                                                <div class="review-block-description">@item.Comment</div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    }
+                                }                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function openCity(evt, cityName) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+            </script>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function GetCart() {
+            return JSON.parse(localStorage.getItem("Cart"));
+        }
+
+        function validateNumber(e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl/cmd+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: Ctrl/cmd+C
+                (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: Ctrl/cmd+X
+                (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        };
+    </script>
+    <script>
+
+
+        $("#txtSoLuong").keydown(validateNumber);
+
+        $("#txtSoLuong").change(function(){
+            let val = $(this).val();
+            if (val < 0)
+                $("#txtSoLuong").val(0);
+        });
+
+        $("#txtSoLuong").keyup(function () {
+            let val = $(this).val();
+            if (val < 0)
+                $("#txtSoLuong").val(0);
+        });
+
+        $("#txtTangSoLuong").click(function () {
+            let value = $("#txtSoLuong").val();
+            value = parseInt(value) + 1;
+
+            $("#txtSoLuong").val(value);
+        });
+
+        $("#txtGiamSoLuong").click(function () {
+            let value = $("#txtSoLuong").val();
+            value = parseInt(value) - 1;
+
+            if(value <= 0)
+            value = 1;
+
+            $("#txtSoLuong").val(value);
+        });
+
+        
+
+        
+        $(document).ready(function () {
+            $('#btnThemVaoGioHang').click(function (e) {
+                e.preventDefault();
+                var data = {
+                    id: $('#txtProductID').val(),
+                    quantity: $('#txtSoLuong').val(),
+                };
+                $.ajax({
+                    url: "/Customer/SanPham/AddCart",
+                    type: "post",
+                    data: data,
+                    success: function (data) {
+                        if (data == "Them Thanh Cong") {
+                            alert("Thêm thành công")
+                        }
+                        if (data == "Them that bai") {
+                            alert("Thêm Thất bại")
+                        }
+                        if (data == "-1") {
+                            alert("Số lượng không phù hợp")
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                })
+            })
+       
+        })
+    </script>
+    @if (Context.Session.GetString("TenDangNhap") != null)
+    {
+        <script> 
+        $(document).ready(function () {
+            $('#rating_product').click(function (e) {
+                e.preventDefault();
+                var data = {
+                    ProductID: $('#txtProductID').val(),
+                    StarRating: $('#num_star').val(),
+                    Comment: $('#comment_text').val(),
+                }
+                $.ajax({
+                    url: "/Customer/SanPham/RatingProduct",
+                    type: "post",
+                    data: data,
+                    success: function (data) {
+                        if (data == "Thêm Thành Công") {
+                            alert("Rating thành công")
+                            location.href = "/Customer/SanPham/Index/" + $('#txtProductID').val();
+                        }
+                        if (data == "Them that bai") {
+                            alert("Rating thất bại")
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                })
+            })
+        })
+     </script>
+    }
+    else {
+        <script>
+            $(document).ready(function () {
+                $('#rating_product').click(function (e) {
+                    e.preventDefault();
+                    alert("Bạn chưa đăng nhập")
+                })
+            })
+        </script>
+    }
+}

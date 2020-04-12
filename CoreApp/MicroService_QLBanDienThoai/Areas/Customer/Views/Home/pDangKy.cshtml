@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h3 class="agileinfo_sign">Đăng Ký</h3>
+<form asp-area="Customer" asp-controller="TaiKhoan" asp-action="CreateTaiKhoan" method="post">
+    <div class="styled-input agile-styled-input-top">
+        <input type="text" name="tendangnhap" pattern=".{8,}" required oninvalid="this.setCustomValidity('Tên đăng nhập chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+        <label>Tên đăng nhập</label>
+        <span></span>
+    </div>
+    <div class="styled-input">
+        <input type="password" name="matkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+        <label>Mật khẩu</label>
+        <span></span>
+    </div>
+    <div class="styled-input">
+        <input type="password" name="confirmmatkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+        <label>Xác nhận mật khẩu</label>
+        <span></span>
+    </div>
+    @*<div class="styled-input">
+        <input type="text" name="ten" required oninvalid="this.setCustomValidity('Cần điền vào họ tên')" onchange="this.setCustomValidity('')">
+        <label>Tên</label>
+        <span></span>
+    </div>*@
+    <div class="styled-input">
+        <input type="email" name="email" required oninvalid="this.setCustomValidity('Email không đúng định dạng')" onchange="this.setCustomValidity('')">
+        <label>Email</label>
+        <span></span>
+    </div>
+    <div class="styled-input">
+        <input type="text" name="dienthoai" id="txtDienThoai" pattern=".{10,12}" required oninvalid="this.setCustomValidity('Số điện thoại chứa 10 - 12 ký tự')" onchange="this.setCustomValidity('')">
+        <label>Số điện thoại</label>
+        <span></span>
+    </div>
+    <div class="styled-input">
+        <input type="text" name="diachi" id="txtDiaChi" pattern=".{6,}" required oninvalid="this.setCustomValidity('Địa chỉ chứa ít nhất 6 ký tự')" onchange="this.setCustomValidity('')">
+        <label>Địa chỉ</label>
+        <span></span>
+    </div>
+    <input type="submit" value="Đăng Ký">
+    <br />
+</form>

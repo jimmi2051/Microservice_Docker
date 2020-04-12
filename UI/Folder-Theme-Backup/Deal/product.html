@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tablet Plaza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/owl.carousel.css" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/font-awesome.min.css">
+    <!--Zoom images-->
+    <link rel="stylesheet" href="assets/cloudzoom.css">
+    <link rel="stylesheet" href="assets/jquery.bxslider.css">
+    <!--End zoom-->
+    <link rel="stylesheet" href="assets/fotorama.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <script type="text/javascript" src="assets/jquery-2.2.4.min.js"></script>
+</head>
+
+<body>
+    <!--Hotline-->
+    <a href="tel:09789 789 789" class="suntory-alo-phone suntory-alo-green" id="suntory-alo-phoneIcon" style="left: 0px; bottom: 0px;">
+        <div class="suntory-alo-ph-circle"></div>
+        <div class="suntory-alo-ph-circle-fill"></div>
+        <div class="suntory-alo-ph-img-circle"><i class="fa fa-phone"></i></div>
+    </a>
+    <!--Popup Quickview-->
+    <div class="popup_quickview" id="popup_quickview" style="display:none;">
+        <div class="content_popup_qv">
+            <div id="close_x" class="close_x">
+                <i class="fa fa-close"></i>
+            </div>
+            <div class=" col-xs-5 col-sm-5 col-md-5 col-lg-5 fotorama" data-arrows="true" data-click="true" data-swipe="true"
+                data-width="700" data-maxwidth="100%" data-ratio="16/9" data-allowfullscreen="true" data-nav="thumbs">
+
+                <a href="images/product_1.jpg"> <img src="images/product_1.jpg"></a>
+
+
+                <a href="images/product_1.jpg"> <img src="images/product_1.jpg"></a>
+
+            </div>
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 right_content">
+                <h2>Iphones 7S</h2>
+                <h3>3.359.000 đ<span>4.000.000 đ</span> </h3>
+                <p>Người bán: <a href="#">Tablet plaza </a>| Tình trạng: <a href="#">Còn hàng</a></p>
+                <p>Mô tả ngắn sản phẩm: <br>Sản phẩm còn zin 100%, hàng chính hãng, chất lượng cao</p>
+                <form class="form_quickview" action="#" method="post">
+                    <input type="hidden" name="id_product" value="#">
+                    <button class="button_add">-</button>
+                    <input value="1" class="input_add" maxlength="3" size="1" name="quantity" id="quantity">
+                    <button class="button_add">+</button>
+                    <button type="submit" class="btn_buy">Mua hàng</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!--Endpopup-->
+    <!--Fixed Menu-->
+    <div class="fixed_menu_top" id="fixed_menu_top" style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="logo hidden-xs col-sm-3 col-md-3 col-lg-3">
+                    <a href="#"><img src="images/logo.png"></a>
+                </div>
+                <span class="margin_center col-xs-2 hidden-sm hidden-md hidden-lg">
+                    <i id="click_drop_menu_fixed" class="fa fa-align-justify"></i>
+                </span>
+                <div class="search  col-xs-8 col-sm-7 col-md-7 col-lg-7">
+                    <form action="#" method="get">
+                        <input type="text" placeholder="Tìm kiếm ..." name="id">
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="margin_center col-xs-2 hidden-sm hidden-md hidden-lg">
+                    <div class="pull-right">
+                        <a href="#">
+                            <span class="quantity">0</span>
+                            <i style="color:white" class="fa fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cart hidden-xs col-sm-2 col-md-2 col-lg-2">
+                    <span class="icon">
+                        <i class="fa fa-cart-plus"></i>
+                        <a class="hidden-mobile" href="#"> (0) sản phẩm</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Header-->
+    <div class="banner_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 no_padding">
+                    <a href="#" alt=""> <img src="images/banner-top.jpg" alt="banner-top" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header_top">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-xs col-sm-12 col-md-12 col-lg-12 no_padding">
+                    <ul>
+                        <li class="hidden-sm hidden-xs">
+                            <img src="images/deal.png" alt="">
+                            <a href="#" target="_blank" rel="noopener noreferrer">Đặt mua ngay bây giờ</a>
+                        </li>
+                        <li>
+                            <img src="images/fire.png" alt="">
+                            <a href="#" target="_blank" rel="noopener noreferrer">Khuyến mãi HOT</a>
+                        </li>
+                        <li class="hidden-sm hidden-xs">
+                            <img src="images/support.png" alt="">
+                            <a href="#" target="_blank" rel="noopener noreferrer">Chăm sóc khách hàng</a>
+                        </li>
+                        <li>
+                            <img src="images/m.png" alt="">
+                            <a href="#" target="_blank" rel="noopener noreferrer">Bán hàng cùng Tablet Plaza</a>
+                        </li>
+                        <li>
+                            <img src="images/call.png" alt="">
+                            <a href="tel://">1900 199 199</a> - <a href="tel://">0989 155 155</a>
+                        </li>
+                        <li>
+                            <img src="images/avatar.png" alt="">
+                            <a href="register.html">Đăng ký</a> |
+                            <a href="#">Đăng nhập</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="middle-header">
+        <div class="container">
+            <div class="logo hidden-xs col-sm-3 col-md-3 col-lg-3">
+                <a href="#"><img src="images/logo.png"></a>
+            </div>
+            <div class="search  hidden-xs col-sm-7 col-md-7 col-lg-7">
+                <form action="#" method="get">
+                    <input type="text" placeholder="Tìm kiếm ..." name="id">
+                    <button><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="cart hidden-xs col-sm-2 col-md-2 col-lg-2">
+                <span class="icon">
+                    <i class="fa fa-cart-plus"></i>
+                    <a class="hidden-mobile" href="#"> (0) sản phẩm</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="mobile-header">
+        <div class="container">
+            <div class="row">
+                <span class="padding-10 col-xs-2 hidden-sm hidden-md hidden-lg">
+                    <i id="click_drop_menu" class="fa fa-align-justify"></i>
+                    <div id="sub-menu" class="mobile-menu" style="display:none;">
+                        <div class="mobile_logo">
+                            <a href="#">
+                                <img src="images/user.png" alt="">
+                            </a>
+                        </div>
+                        <div class="exit_menu">
+                            <i id="click_exit_menu" class="fa fa-window-close"></i>
+                        </div>
+                        <div style="text-align:center;padding:10px 0;">
+                            <a href="#">
+                                Đăng ký </a> | <a href="#">Đăng nhập
+                            </a>
+                        </div>
+                        <ul>
+                            <li style="border-top:#ebebeb 1px solid;">
+                                <a href="#">Trang chủ</a>
+                            </li>
+                            <li>
+                                <a href="#">Tin tức</a>
+                            </li>
+                            <li>
+                                <a href="#">Liên hệ</a>
+                            </li>
+                            <li>
+                                <a href="#">Sản phẩm hot</a>
+                            </li>
+                            <li><a href="#">Sản phẩm VIP</a></li>
+                        </ul>
+                    </div>
+                </span>
+                <div class="col-xs-8 hidden-sm hidden-md hidden-lg">
+                    <div class="thumb_logo_mobile">
+                        <a href="#">
+                            <img src="images/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="padding-10 col-xs-2 hidden-sm hidden-md hidden-lg">
+                    <div class="pull-right">
+                        <a href="#">
+                            <span class="quantity">0</span>
+                            <i style="color:rgb(24, 53, 68);" class="fa fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="search col-xs-12 hidden-sm hidden-md hidden-lg">
+                    <form action="#" method="get">
+                        <input type="text" placeholder="Tìm kiếm ..." name="id">
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End header-->
+    <div class="product">
+        <div class="container">
+            <div class="row">
+                <div class="no_padding left_category hidden-xs col-sm-3 col-md-3 col-lg-3">
+                    <h2 onclick="clickShowCategory('menu_show');" class="title"><i class="fa fa-align-justify"></i>Danh muc</h2>
+                    <ul id="menu_show" style="display:none;">
+                        <li>
+                            <a href="#">Trang chủ</a>
+                        </li>
+                        <li>
+                            <a href="#">Tin tức</a>
+                        </li>
+                        <li>
+                            <a href="#">Liên hệ</a>
+                        </li>
+                        <li>
+                            <a href="#">Sản phẩm hot</a>
+                        </li>
+                        <li><a href="#">Sản phẩm VIP</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                    <div class="title_collection">
+                        <a href="/"><i class="fa fa-home"></i></a>
+                        <i class="fa fa-angle-right"></i><a href="#"> Ipad</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="content_product">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 left_content">
+                                <div class="product__view__image--list">
+                                    <ul class="bxslider">
+                                        <li>
+                                            <div class="thumb_image_quickview">
+                                                <img class="cloudzoom" id="zoom1" data-cloudzoom="zoomSizeMode:'image',zoomPosition:'3', zoomOffsetX:0"
+                                                    src="images/product_2.png" alt="#" />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div id="bx-pager" class="bx-pager owl-carousel">
+                                        <a data-slide-index="0" href=""><img src="images/product_1.jpg" alt="#" class="img-responsive" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 right_content">
+                                <h2 class="title">Iphones 7S</h2>
+                                <div class="information_product col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                    <form class="form_quickview" action="#" method="post">
+                                        <input type="hidden" name="id_product" value="#">
+                                        <span class="col-xs-4">Màu sắc: </span>
+                                        <select class="form-control choose_product">
+                                            <option>Xanh</option>
+                                            <option>Đỏ </option>
+                                            <option>Tím</option>
+                                        </select>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">Dung lượng bộ nhớ: </span>
+                                        <select class="form-control choose_product">
+                                            <option>12gb</option>
+                                            <option>24gb </option>
+                                            <option>36gb</option>
+                                        </select>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">
+                                            Số lượng:
+                                        </span>
+                                        <button class="button_add">-</button>
+                                        <input value="1" class="input_add" maxlength="3" size="5" name="quantity" id="quantity">
+                                        <button class="button_add">+</button>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">
+                                            Giá gốc:
+                                        </span>
+                                        <h3 class="price_disable line_throught">4.000.000 đ</h3>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">
+                                            Tiết kiệm:
+                                        </span>
+                                        <h3 class="price_disable">359.000 đ</h3>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">
+                                            Giá:
+                                        </span>
+                                        <h3 style="color:#f70302">3.359.000 đ</h3>
+                                        <div class="clearfix"></div>
+                                        <span class="col-xs-4">
+                                            Tình trạng:
+                                        </span>
+                                        <span><b>Còn hàng (10 sản phẩm có sẵn)</b></span>
+                                        <div class="clearfix"></div>
+                                        <div class="submit_div">
+                                            <button type="submit" class="btn_buy">Mua hàng</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="information_seller col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <h2>Thông tin người bán: </h2>
+                                    <p>Tên định danh: <a href="#">Tablet plaza </a></p>
+                                    <p>Đánh giá: <span class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                    </p>
+                                    <p style="color:#f58634;">Cấp bậc: <b>Vàng <i class="fa fa-trophy"></i></b></p>
+                                    <hr>
+                                    <a href="#">Ghé thăm gian hàng</a>
+                                    <br>
+                                    <a href="#">Liên hệ người bán</a>
+                                </div>
+                            </div>
+                            <div class="information_product col-xs-12 col-sm-12 col-md-12 col-lg-12 no_padding">
+                                <div class="detail_product col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
+                                    <h4>Đặc điểm nổi bật của iPhone 7 Plus 128GB Đỏ</h4>
+                                    <p>
+                                        iPhone 7 Plus Red 128GB là phiên bản iPhone 7 Plus mới được Apple giới thiệu
+                                        với màu
+                                        sắc mới là màu Red nhằm kỉ niệm 10 năm hợp tác giữa Apple và (RED) – một tổ
+                                        chức gây
+                                        quỹ hỗ trợ phòng chống AIDS.
+                                        <img src="images/detail_product.jpg">
+                                    </p>
+                                </div>
+                                <div class=" col-xs-12 col-sm-4 col-md-4 col-lg-4 no_padding">
+                                    <table class="tbl_product">
+                                        <tr>
+                                            <th colspan="2" class="text-center">Thông số kỹ thuật</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Màn hình:
+                                            </td>
+                                            <td> LED-backlit IPS LCD, 5.5", Retina HD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Màn hình:
+                                            </td>
+                                            <td> LED-backlit IPS LCD, 5.5", Retina HD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Màn hình:
+                                            </td>
+                                            <td> LED-backlit IPS LCD, 5.5", Retina HD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Màn hình:
+                                            </td>
+                                            <td> LED-backlit IPS LCD, 5.5", Retina HD</td>
+                                        </tr>
+                                    </table>
+                                    <div clas="clearfix"></div>
+                                    <h3>Co the ban thich</h3>
+                                    <div clas="clearfix"></div>
+                                    <div class="product_box">
+                                        <div class="title_box">
+                                            <a href="#">
+                                                <p class="name_product">Tablet Plaza</p>
+                                            </a>
+                                            <p class="poster_product">3 An Dương Vương, P3, Q5</p>
+                                            <p class="square_rating">8.0</p>
+                                        </div>
+                                        <div class="thumb_image_product">
+                                            <a href="#"><img src="images/product_1.jpg"></a>
+                                        </div>
+                                        <div class="info_box">
+                                            <a href="#" class="detail_product">
+                                                <p> Sansung Galaxy Tab A8.0 (2017) - T385</p>
+                                            </a>
+                                            <span class="price">
+                                                3.000.000 d
+                                            </span>
+                                            <br class="hidden_desktop">
+                                            <span class="disable_price">
+                                                4.000.000 d
+                                            </span>
+                                            <span class="sales_percent">
+                                                -15%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="product_box">
+                                        <div class="title_box">
+                                            <a href="#">
+                                                <p class="name_product">Tablet Plaza</p>
+                                            </a>
+                                            <p class="poster_product">3 An Dương Vương, P3, Q5</p>
+                                            <p class="square_rating">8.0</p>
+                                        </div>
+                                        <div class="thumb_image_product">
+                                            <a href="#"><img src="images/product_1.jpg"></a>
+                                        </div>
+                                        <div class="info_box">
+                                            <a href="#" class="detail_product">
+                                                <p> Sansung Galaxy Tab A8.0 (2017) - T385</p>
+                                            </a>
+                                            <span class="price">
+                                                3.000.000 d
+                                            </span>
+                                            <br class="hidden_desktop">
+                                            <span class="disable_price">
+                                                4.000.000 d
+                                            </span>
+                                            <span class="sales_percent">
+                                                -15%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="product_box">
+                                        <div class="title_box">
+                                            <a href="#">
+                                                <p class="name_product">Tablet Plaza</p>
+                                            </a>
+                                            <p class="poster_product">3 An Dương Vương, P3, Q5</p>
+                                            <p class="square_rating">8.0</p>
+                                        </div>
+                                        <div class="thumb_image_product">
+                                            <a href="#"><img src="images/product_1.jpg"></a>
+                                        </div>
+                                        <div class="info_box">
+                                            <a href="#" class="detail_product">
+                                                <p> Sansung Galaxy Tab A8.0 (2017) - T385</p>
+                                            </a>
+                                            <span class="price">
+                                                3.000.000 d
+                                            </span>
+                                            <br class="hidden_desktop">
+                                            <span class="disable_price">
+                                                4.000.000 d
+                                            </span>
+                                            <span class="sales_percent">
+                                                -15%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix" style="margin: 10px 0px;"></div>
+                            <div class="product_relate col-xs-12 col-sm-12 col-md-12 col-lg-12 no_padding">
+                                <h2>San pham lien quan</h2>
+                                <div class="owl-product-relate owl-carousel owl-theme">
+                                    <div class="item">
+                                        <div class="product_box">
+                                            <div class="title_box">
+                                                <a href="#">
+                                                    <p class="name_product">Tablet Plaza</p>
+                                                </a>
+                                                <p class="poster_product">3 An Dương Vương, P3, Q5</p>
+                                                <p class="square_rating">8.0</p>
+                                            </div>
+                                            <div class="thumb_image_product">
+                                                <a href="#"><img src="images/product_1.jpg"></a>
+                                            </div>
+                                            <div class="info_box">
+                                                <a href="#" class="detail_product">
+                                                    <p> Sansung Galaxy Tab A8.0 (2017) - T385</p>
+                                                </a>
+                                                <span class="price">
+                                                    3.000.000 d
+                                                </span>
+                                                <br class="hidden_desktop">
+                                                <span class="disable_price">
+                                                    4.000.000 d
+                                                </span>
+                                                <span class="sales_percent">
+                                                    -15%
+                                                </span>
+                                            </div>
+                                            <div class="quick_view">
+                                                <form action="#" method="post">
+                                                    <button type="submit" class="btn_buy">
+                                                        Mua hàng
+                                                    </button>
+                                                    <a onclick="quick_view();" href=""> <button onclick="return false;"
+                                                            class="btn_quickview"><i class="fa fa-search"></i></button></a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <footer>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-logo">
+                    <img src="images/logo.png">
+                </div>
+                <div class="foo-grids">
+                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                        <h4 class="footer-head">Liên hệ<span onclick="clickShowFooter('footer_links_1');" class="plus_more pull-right"><i
+                                    class="fa fa-plus"></i></span></h4>
+                        <table id="footer_links_1">
+                            <tr>
+                                <td>
+                                    <span class="fa fa-map-marker"></span>
+                                </td>
+                                <td>
+                                    56 Nguyễn Trải, Phường 3, Quận 5, Tp. HCM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="fa fa-phone"></span>
+                                </td>
+                                <td>
+                                    <a href="tel:0989789789">+84 989 789 789</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="fa fa-envelope"></span>
+                                </td>
+                                <td>
+                                    <a href="mailto:info@example.com">mail@example.com</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                        <h4 class="footer-head">Thông tin <span onclick="clickShowFooter('footer_links_2');" class="plus_more pull-right"><i
+                                    class="fa fa-plus"></i></span></h4>
+                        <ul id="footer_links_2">
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Trang chủ</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Tin tức</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Liên hệ</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Sản phẩm hot</a>
+                            </li>
+                            <li><i class="fa fa-arrow-right"></i> <a href="#">Sản phẩm VIP</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                        <h4 class="footer-head">Chính sách <span onclick="clickShowFooter('footer_links_3');" class="plus_more pull-right"><i
+                                    class="fa fa-plus"></i></span></h4>
+                        <ul id="footer_links_3">
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Chính sách giao hàng</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Chính sách thanh toán</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Chính sách trả hàng</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Chính sách đổi trả</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Chính sách bảo mật</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                        <h4 class="footer-head">Chăm sóc khách hàng <span onclick="clickShowFooter('footer_links_4');"
+                                class="plus_more pull-right"><i class="fa fa-plus"></i></span></h4>
+                        <ul id="footer_links_4">
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Hướng dẫn mua hàng trực tuyến</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Giao hàng và nhận hàng</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Hướng dẫn thanh toán</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Câu hỏi thường gặp</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-arrow-right"></i> <a href="#">Tài khoản</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <hr />
+                <div class="copyrights">
+                    <p> © 2018 Bản quyền thuộc về Tablet Plaza | Thiết kế bởi <a href="http://w3layouts.com/">
+                            IT_Team_DCT</a></p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <button onclick="topFunction()" id="btnTop" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+    <script src="assets/owl.carousel.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <script src="assets/custom.js"></script>
+    <script src="assets/slider.js"></script>
+    <!--Zoom image-->
+    <script src="assets/jquery.bxslider.min.js"></script>
+    <script src="assets/cloudzoom.js"></script>
+    <script src="assets/fotorama.js"></script>
+    <script src="assets/product_script.js"></script>
+    <!--End zoom-->
+</body>
+
+</html>

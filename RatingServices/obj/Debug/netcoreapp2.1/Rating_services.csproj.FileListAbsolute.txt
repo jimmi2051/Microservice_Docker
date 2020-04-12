@@ -1,0 +1,14 @@
+/home/deftnt/Rating_services/bin/Debug/netcoreapp2.1/Rating_services.deps.json
+/home/deftnt/Rating_services/bin/Debug/netcoreapp2.1/Rating_services.runtimeconfig.json
+/home/deftnt/Rating_services/bin/Debug/netcoreapp2.1/Rating_services.runtimeconfig.dev.json
+/home/deftnt/Rating_services/bin/Debug/netcoreapp2.1/Rating_services.dll
+/home/deftnt/Rating_services/bin/Debug/netcoreapp2.1/Rating_services.pdb
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.csprojAssemblyReference.cache
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.csproj.CoreCompileInputs.cache
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.RazorAssemblyInfo.cache
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.RazorAssemblyInfo.cs
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.AssemblyInfoInputs.cache
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.AssemblyInfo.cs
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.RazorTargetAssemblyInfo.cache
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.dll
+/home/deftnt/Rating_services/obj/Debug/netcoreapp2.1/Rating_services.pdb

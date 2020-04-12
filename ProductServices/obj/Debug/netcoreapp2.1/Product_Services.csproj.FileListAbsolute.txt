@@ -1,0 +1,14 @@
+/home/deftnt/Documents/Product_Services/bin/Debug/netcoreapp2.1/Product_Services.deps.json
+/home/deftnt/Documents/Product_Services/bin/Debug/netcoreapp2.1/Product_Services.runtimeconfig.json
+/home/deftnt/Documents/Product_Services/bin/Debug/netcoreapp2.1/Product_Services.runtimeconfig.dev.json
+/home/deftnt/Documents/Product_Services/bin/Debug/netcoreapp2.1/Product_Services.dll
+/home/deftnt/Documents/Product_Services/bin/Debug/netcoreapp2.1/Product_Services.pdb
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.csprojAssemblyReference.cache
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.csproj.CoreCompileInputs.cache
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.RazorAssemblyInfo.cache
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.RazorAssemblyInfo.cs
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.AssemblyInfoInputs.cache
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.AssemblyInfo.cs
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.RazorTargetAssemblyInfo.cache
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.dll
+/home/deftnt/Documents/Product_Services/obj/Debug/netcoreapp2.1/Product_Services.pdb

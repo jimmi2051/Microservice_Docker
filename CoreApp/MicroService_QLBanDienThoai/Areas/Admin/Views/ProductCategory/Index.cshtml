@@ -1,0 +1,153 @@
+﻿@model IEnumerable<MicroService_QLBanDienThoai.Models.ProductCategory>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h1 class="page-header">DANH SÁCH LOẠI SẢN PHẨM</h1>
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- Search form -->
+        <div class="row">
+            <!-------------------------------------------------------- INSERT ---------------------------------------------------------->
+            <div class="col-lg-1">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#themModal">Thêm</button>
+            </div>
+            <!-------------------------------------------------------- SEARCH CATEGORY ---------------------------------------------------------->
+            @*<div class="col-lg-2">
+                    <div class="form-group">
+                        <select class="form-control" id="sortList" onchange="window.location.href = SearchAndSort()">
+                            <option selected disabled>Sắp xếp theo</option>
+                            <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-az">Mã loại người dùng (A-Z)</option>
+                            <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-za">Mã loại người dùng (Z-A)</option>
+                            <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-az">Tên loại người dùng (A-Z)</option>
+                            <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-za">Tên loại người dùng (Z-A)</option>
+                        </select>
+                    </div>
+                </div>*@
+            <!-------------------------------------------------------- SEARCH BAR ---------------------------------------------------------->
+            <div class="col-lg-3">
+                <form asp-controller="ProductCategory" asp-action="Search" method="get">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" id="searchList" placeholder="Tìm kiếm..." name="search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-------------------------------------------------------- MAIN TABLE ---------------------------------------------------------->
+        </div>
+        <br />
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Mã Loại</th>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Chức Năng</th>
+
+                </tr>
+            </thead>
+            <tbody class="body-content">
+                @foreach (var item in Model)
+                {
+                <tr class="odd gradeX">
+                    <td class="item-ID">@item.Id</td>
+                    <td class="item-CategoryID">@item.CategoryId</td>
+                    <td class="item-ProductID">@item.ProductId</td>
+
+                    <td>
+                        <button class="btn btn-primary btnSuaCategory" type="button" data-toggle="modal" data-target="#suaModal">Sửa</button>
+                        @*<a asp-controller="Category" asp-action="DeleteCategory" asp-route-Categoryid="@item.CategoryId" class="btn btn-danger">Xoá</a>*@
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <!-- /.table-responsive -->
+        <!-- /.panel-body -->
+        <!-------------------------------------------------------- INSERT MODAL ---------------------------------------------------------->
+
+        <div class="modal fade" id="themModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="ProductCategory" asp-action="CreateProductCategory" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><b>LOẠI SẢN PHẨM</b></h4>
+                        </div>
+                        <div class="modal-body">
+                           <div class="form-group">
+                                    <label>Mã Loại</label>
+                                    <input type="text" class="form-control" id="item-them-CategoryID" name="item_them_CategoryID" required>
+                                </div>
+                            <div class="form-group">
+                                <label>Mã Sản Phẩm</label>
+                                <input type="text" class="form-control" id="item-them-ProductID" name="item_them_ProductID" required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning" id="btnThemCategory">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------------------------------------- UPDATE MODAL ---------------------------------------------------------->
+        <div class="modal fade" id="suaModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="ProductCategory" asp-action="EditProductCategory" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                            <h4 class="modal-title"><b>LOẠI SẢN PHẨM</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Mã Loại</label>
+                                <input type="text" class="form-control" id="item-sua-CategoryID" name="item_sua_CategoryID" required >
+                            </div>
+                            <div class="form-group">
+                                <label>Mã Sản Phẩm</label>
+                                <input type="text" class="form-control" id="item-sua-ProductID" name="item_sua_ProductID" required readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning" id="btnSuaCategory">Sửa</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (ViewBag.ThongBao != null)
+        {
+            <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+            </script>
+        }
+
+
+        <script>
+            $(".btnSuaCategory").click(function () {
+                let CategoryID = $(this).closest('tr').find('.item-CategoryID').text();
+                let ProductID = $(this).closest('tr').find('.item-ProductID').text();
+                $("#item-sua-CategoryID").val(CategoryID.trim());
+                $("#item-sua-ProductID").val(ProductID.trim());
+    });
+        </script>

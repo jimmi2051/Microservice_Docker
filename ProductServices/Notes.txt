@@ -1,0 +1,123 @@
+Hướng dẫn run service: 
+B1) Chạy Bash-shell khởi động MSSQL
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=ThisIsPass1@' -p 1433:1433 --name sqlserver -d microsoft/mssql-server-linux
+B2) dotnet restore && dotnetrun 
+// chạy trực tiếp -- ông chỉnh sửa test này nọ ok hết rồi hãy add docker file - 
+-----------------------------------------------------------------------------------
+1) Upload image
++ Upload
+	Url: http://<server-name>/api/upload 
+	Method: HttpPost
+	Input: Multipart/form-data - file
+	Output: Thành công - trả về id của Image. 
++ Remove
+	Url: http://<server-name>/api/{id}
+	Method: HttpDelete
+	Input: 
+	Output: Thành công - "Delete Success"
++ Get All Img
+	Url: http://<server-name>/api/upload 
+	Method: HttpGet
+	Output: Thành công - list tất cả hình ảnh
++ Get detail img
+	Url: http://<server-name>/api/upload/{id}
+	Method: HttpGet
+	Output: Thành công - thông tin image.  
+2) Category
++ Create
+	Url: http://<server-name>/api/category
+	Method: HttpPost
+	Input: Object Category
+	Output: Thành công Object category
++ Update
+	Url: http://<server-name>/api/category/{id}
+	Method: HttpPut
+	Input: Object Category
+	Output: Thành công Object category
++ Delete - Lock
+	Url: http://<server-name>/api/category/{id}
+	Method: HttpDelete
+	Output: Thành công - Object category
++ Get all available: 
+	Url: http://<server-name>/api/category/GetAvaiable
+	Method: HttpGet
+	Output: Thành công list category có active = True
++ Get All
+	Url: http://<server-name>/api/category
+	Method: HttpGet
+	Output: Thành công list category
++ Get cat by id 
+	Url: http://<server-name>/api/category/{id}
+	Method: HttpGet
+	Output: Thành công list category
+3) Product
+-- Giống category
++ Get All Img by Id
+	Url: http://<server-name>/api/product/GetImgByProduct-{id}
+	Method: HttpGet
+	Output: Thành công - list product - image // của product đó
++ Get All Cat by Id
+	Url: http://<server-name>/api/product/GetCatByProduct-{id}
+	Method: HttpGet
+	Output: Thành công - list product - category // của product
+--------------------------------------------------------------------------------
+DỮ liệu demo: Nhớ là insert category trước - upload image truớc rồi mới create product nhé ^^! 
+1) Product:
+
+	{
+	  "product":
+	      {
+	      "ProductID":"SP001",
+	      "Name":"Sách giáo khoa 1",
+	      "Detail":"Chương trình lớp 1",
+	      "Languge":"VietNam",
+	      "Quantity":5,
+	      "Author":"Mr Thành",
+	      "Is_Active":"True",
+	      "Archive":"True"
+	    },
+	  "images":[2,3],
+	  "categories":[1],
+	  "discount":
+	  {
+	    "percent":5,
+	    "Date_start":"1/1/2018",
+	    "Date_end":"12/12/2018",
+	    "Active":"True"
+	  }
+	}
+
+	  {
+	  "product":
+	      {
+	      "ProductID":"SP002",
+	      "Name":"Sách giáo khoa 2",
+	      "Detail":"Sách giáo khoa 2",
+	      "Languge":"VietNam",
+	      "Quantity":5,
+	      "Author":"Mr Thành",
+	      "Is_Active":"True",
+	      "Archive":"True"
+	    },
+	  "images":[2,3],
+	  "categories":[1]
+	}
+
+2)Category:
+{
+  "CategoryID":"CAT001",
+  "CategoryName":"Sách giáo khoa",
+  "Quantity":0,
+  "Is_Active":"True",
+  "Archive":"True"
+}
+{
+  "CategoryID":"CAT002",
+  "CategoryName":"Sách tiếng việt",
+  "Quantity":0,
+  "Is_Active":"True",
+  "Archive":"True"
+}
+	
+
+

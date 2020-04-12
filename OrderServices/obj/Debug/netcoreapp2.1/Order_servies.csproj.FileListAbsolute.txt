@@ -1,0 +1,14 @@
+/home/deftnt/Order_servies/bin/Debug/netcoreapp2.1/Order_servies.deps.json
+/home/deftnt/Order_servies/bin/Debug/netcoreapp2.1/Order_servies.runtimeconfig.json
+/home/deftnt/Order_servies/bin/Debug/netcoreapp2.1/Order_servies.runtimeconfig.dev.json
+/home/deftnt/Order_servies/bin/Debug/netcoreapp2.1/Order_servies.dll
+/home/deftnt/Order_servies/bin/Debug/netcoreapp2.1/Order_servies.pdb
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.csprojAssemblyReference.cache
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.csproj.CoreCompileInputs.cache
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.RazorAssemblyInfo.cache
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.RazorAssemblyInfo.cs
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.AssemblyInfoInputs.cache
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.AssemblyInfo.cs
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.RazorTargetAssemblyInfo.cache
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.dll
+/home/deftnt/Order_servies/obj/Debug/netcoreapp2.1/Order_servies.pdb

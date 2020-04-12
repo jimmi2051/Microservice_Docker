@@ -1,0 +1,215 @@
+﻿@model IEnumerable<MicroService_QLBanDienThoai.Models.Account>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h1 class="page-header">DANH SÁCH TÀI KHOẢN</h1>
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- Search form -->
+        <div class="row">
+            <!-------------------------------------------------------- INSERT ---------------------------------------------------------->
+            <div class="col-lg-1">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#themModal">Thêm</button>
+            </div>
+            <!-------------------------------------------------------- SEARCH CATEGORY ---------------------------------------------------------->
+            @*<div class="col-lg-2">
+                <div class="form-group">
+                    <select class="form-control" id="sortList" onchange="window.location.href = SearchAndSort()">
+                        <option selected disabled>Sắp xếp theo</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-az">Mã loại người dùng (A-Z)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-za">Mã loại người dùng (Z-A)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-az">Tên loại người dùng (A-Z)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-za">Tên loại người dùng (Z-A)</option>
+                    </select>
+                </div>
+            </div>*@
+            <!-------------------------------------------------------- SEARCH BAR ---------------------------------------------------------->
+            <div class="col-lg-3">
+                <form asp-controller="Account" asp-action="Search" method="get">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" id="searchList" placeholder="Tìm kiếm..." name="search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-------------------------------------------------------- MAIN TABLE ---------------------------------------------------------->
+        </div>
+        <br />
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã Tài Khoản</th>
+                    <th>Tên Tài Khoản</th>
+                    <th>Mật Khẩu</th>
+                    <th>Điện Thoại</th>
+                    <th>Địa Chỉ</th>
+                    <th>Email</th>
+                    <th>Loại </th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody class="body-content">
+                @foreach (var item in Model)
+                {
+                    <tr class="odd gradeX">
+                        <td class="item-AccountID">@item.AccountId</td>
+                        <td class="item-AccountName">@item.AccountName</td>
+                        <td class="item-Password">@item.Password</td>
+                        <td class="item-PhoneNumber">@item.PhoneNumber</td>
+                        <td class="item-Address">@item.Address</td>
+                        <td class="item-Email">@item.Email</td>
+                        <td class="item-AccountType">@item.AccountType</td>
+                        <td>
+                            <button class="btn btn-primary btnSuaAccount" type="button" data-toggle="modal" data-target="#suaModal">Sửa</button>
+                            <a asp-controller="Account" asp-action="DeleteAccount" asp-route-accountid="@item.AccountId" class="btn btn-danger">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- /.table-responsive -->
+        <!-- /.panel-body -->
+        <!-------------------------------------------------------- INSERT MODAL ---------------------------------------------------------->
+
+        <div class="modal fade" id="themModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="Account" asp-action="CreateAccount" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><b>TÀI KHOẢN</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Mã Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-them-AccountID" name="item_them_AccountID" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-them-AccountName" name="item_them_AccountName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Mật Khẩu</label>
+                                <input type="text" class="form-control" id="item-them-Password" name="item_them_Password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Điện Thoại</label>
+                                <input type="text" class="form-control" id="item-them-PhoneNumber" name="item_them_PhoneNumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Địa Chỉ</label>
+                                <input type="text" class="form-control" id="item-them-Email" name="item_them_Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Địa Chỉ</label>
+                                <input type="text" class="form-control" id="item-them-Address" name="item_them_Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-them-AccountType" name="item_them_AccountType" required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning" id="btnThemAccount">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------------------------------------- UPDATE MODAL ---------------------------------------------------------->
+        <div class="modal fade" id="suaModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="Account" asp-action="EditAccount" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                            <h4 class="modal-title"><b>TÀI KHOẢN</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Mã Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-sua-AccountID" name="item_sua_AccountID" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-sua-AccountName" name="item_sua_AccountName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Mật Khẩu</label>
+                                <input type="text" class="form-control" id="item-sua-Password" name="item_sua_Password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Điện Thoại</label>
+                                <input type="text" class="form-control" id="item-sua-PhoneNumber" name="item_sua_PhoneNumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" id="item-sua-Email" name="item_sua_Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Địa Chỉ</label>
+                                <input type="text" class="form-control" id="item-sua-Address" name="item_sua_Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-sua-AccountType" name="item_sua_AccountType" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Sửa</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (ViewBag.ThongBao != null)
+        {
+            <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+            </script>
+        }
+
+
+        <script>
+            $(".btnSuaAccount").click(function () {
+                let accountID = $(this).closest('tr').find('.item-AccountID').text();
+                let accountName = $(this).closest('tr').find('.item-AccountName').text();
+                let Password = $(this).closest('tr').find('.item-Password').text();
+                let PhoneNumber = $(this).closest('tr').find('.item-PhoneNumber').text();
+                let Address = $(this).closest('tr').find('.item-Address').text();
+                let Email = $(this).closest('tr').find('.item-Email').text();
+                let AccountType = $(this).closest('tr').find('.item-AccountType').text();
+
+
+                $("#item-sua-AccountID").val(accountID.trim());
+                $("#item-sua-AccountName").val(accountName.trim());
+                $("#item-sua-Password").val(Password.trim());
+                $("#item-sua-PhoneNumber").val(PhoneNumber.trim());
+                $("#item-sua-Address").val(Address.trim());
+                $("#item-sua-Email").val(Email.trim());
+                $("#item-sua-AccountType").val(AccountType.trim());
+
+            });
+        </script>

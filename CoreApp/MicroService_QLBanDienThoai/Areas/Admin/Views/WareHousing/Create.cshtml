@@ -1,0 +1,147 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@{
+    List<MicroService_QLBanDienThoai.Models.Product> _list = (List<MicroService_QLBanDienThoai.Models.Product>)ViewBag.Product;
+}
+
+<h1 class="page-header">THÊM MỚI NHẬP KHO</h1>
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- Search form -->
+
+        <br />
+        <div class="col-lg-8">
+
+            <div class="col-lg-6" style="display:inline-block;float:left;">
+                <p>Nguời Nhập:</p> <input type="text" class="form-control" readonly="readonly" value="@Context.Session.GetString("TenDangNhap")" id="searchList" name="search">
+            </div>
+            <div class="col-lg-6" style="display:inline-block;float:left;">
+                <p>Tổng Tiền: </p><input type="text" class="form-control" readonly="readonly" value="0" id="sum_amount" placeholder="" name="">
+            </div>
+            <div class="col-lg-5" style="display:inline-block;float:left;">
+                <p>Ngày Nhập</p> <input type="text" readonly="readonly" class="form-control" value="@DateTime.Now" id="" placeholder="" name="">
+            </div>
+            <div class="col-lg-5" style="display:inline-block;float:left;">
+                <p>Mã Sản Phẩm:</p>
+                <select class="form-control" id="select_product">
+                    @{
+                        foreach (var item in _list)
+                        {
+                            <option value="@item.ProductId">@item.ProductId</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-lg-2" style="display:inline-block;float:left;">
+                <p>Chuc nang</p>
+                <a href="" id="add_product" class="form-control btn btn-info">Them</a>
+            </div>
+        </div>
+        <script>
+            function insert_product(quantity, price) {
+                var sum_amount = parseFloat($('#sum_amount').val())
+                var _quantity = parseInt(quantity);
+                var _price = parseInt(price);
+                sum_amount += _quantity * _price;
+                $('#sum_amount').attr('value', sum_amount)
+            }
+            function removeproduct(a) {
+                var elem = document.getElementById('result_insert');
+                elem.parentNode.removeChild(a);
+            }
+            $('#add_product').click(function (e) {
+                e.preventDefault();
+                var SP = $('#select_product').val();
+                var data = {
+                    id: SP,
+                };
+                $.ajax({
+                    url: "/Admin/WareHousing/GetProduct",
+                    type: "post",
+                    data: data,
+                    success: function (data) {
+                        var html = '';
+                        html += '<tr style="vertical-align: middle;" class="odd gradeX" id="' + data['id'] + '">'
+                        html += ' <td style="vertical-align: middle;" class="item-AccountID list_product">' + data['productId'] + ' </td>'
+                        html += '<td style="vertical-align: middle;" class="item-AccountName">' + data['name'] + '</td>'
+                        html += '<td style="vertical-align: middle;" class="item-AccountName"> <img style="max-width:15%" src="/HinhSanPham/' + data['image'] + '"/></td>'
+                        html += '<td style="vertical-align: middle;" class="item-AccountName"><input id="quan' + data['productId'] + '" onchange="insert_product(this.value,' + data['price'] + ')" value="0"></td>'
+                        html += '<td style="vertical-align: middle;"><a asp-controller="" asp-action=""onclick="removeproduct("' + data['id'] + '");return false;"  asp-route-accountid="" class="btn btn-danger">Xóa</a></td>'
+                        $('#result_insert').append(html);
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                })
+            })
+           
+           
+
+        </script>
+        <div class="clearfix"></div>
+        <br />
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody class="body-content" id="result_insert"></tbody>
+        </table>
+        <a id="confirm_receipt" class="form-control btn btn-info">Nhap kho</a>
+    </div>
+</div>
+<script>
+    $('#confirm_receipt').click(function (e) {
+        e.preventDefault();
+        var product = [];
+        var quantity = [];
+        $(".list_product").each(function () {
+            if ($('#quan' + $(this).html()).val() < 1) {
+                alert('So luong khong phu hop');
+                return false;
+            }
+            product.push($(this).html())
+            quantity.push($('#quan' + $(this).html()).val());
+        });
+        var input_data = {
+            product: product,
+            quantity: quantity,
+            amount: $('#sum_amount').val(),
+        }
+        $.ajax({
+            url: "/Admin/WareHousing/CreateReceipt",
+            type: "post",
+            data: input_data,
+            success: function (data) {
+                alert("Nhập kho thành công");
+            },
+            error: function (data) {
+                alert("Error: "+data);
+            }
+        })
+    })
+</script>
+<!-- /.table-responsive -->
+<!-- /.panel-body -->
+
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+    </script>
+}
+
+

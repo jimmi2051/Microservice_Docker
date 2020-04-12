@@ -1,0 +1,92 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<MicroService_QLBanDienThoai.Areas.Admin.Models.ViewReceipt>
+
+<h1 class="page-header">DANH SÁCH NHẬP KHO</h1>
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- Search form -->
+        <div class="row">
+            <!-------------------------------------------------------- INSERT ---------------------------------------------------------->
+            <div class="col-lg-1">
+                <a asp-controller="WareHousing" asp-action="Create" method="get">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#">Thêm</button>
+                    </a>
+            </div>
+            <!-------------------------------------------------------- SEARCH CATEGORY ---------------------------------------------------------->
+            @*<div class="col-lg-2">
+            <div class="form-group">
+                <select class="form-control" id="sortList" onchange="window.location.href = SearchAndSort()">
+                    <option selected disabled>Sắp xếp theo</option>
+                    <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-az">Mã loại người dùng (A-Z)</option>
+                    <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-za">Mã loại người dùng (Z-A)</option>
+                    <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-az">Tên loại người dùng (A-Z)</option>
+                    <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-za">Tên loại người dùng (Z-A)</option>
+                </select>
+            </div>
+        </div>*@
+            <!-------------------------------------------------------- SEARCH BAR ---------------------------------------------------------->
+            <div class="col-lg-3">
+                <form asp-controller="Account" asp-action="Search" method="get">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" id="searchList" placeholder="Tìm kiếm..." name="search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            <!-------------------------------------------------------- MAIN TABLE ---------------------------------------------------------->
+        </div>
+        <br />
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã phiếu nhập</th>
+                    <th>Mã người nhập</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày nhập</th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody class="body-content">
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="odd gradeX">
+                                <td width="10%" class="item-AccountID">@item.Receipt_ID </td>
+                                <td width="10%" class="item-AccountName">@item.AccountID</td>
+                                <td width="30%" class="item-Password">@item.Amount.ToString("#.#") đ</td>
+                                <td width="30%" class="item-PhoneNumber">@item.Success_At</td>
+                                <td>
+                                    <a href="/Admin/WareHousing/Detail/@item.Receipt_ID" class="btn btn-danger">Chi Tiết</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+        <!-- /.table-responsive -->
+        <!-- /.panel-body -->
+
+        @if (ViewBag.ThongBao != null)
+        {
+            <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+            </script>
+        }
+
+

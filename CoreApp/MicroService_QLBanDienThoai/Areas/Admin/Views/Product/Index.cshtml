@@ -1,0 +1,219 @@
+﻿@model IEnumerable<MicroService_QLBanDienThoai.Models.Product>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h1 class="page-header">DANH SÁCH SẢN PHẨM</h1>
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- Search form -->
+        <div class="row">
+            <!-------------------------------------------------------- INSERT ---------------------------------------------------------->
+            <div class="col-lg-1">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#themModal">Thêm</button>
+            </div>
+
+            <!-------------------------------------------------------- SEARCH CATEGORY ---------------------------------------------------------->
+            @*<div class="col-lg-2">
+                <div class="form-group">
+                    <select class="form-control" id="sortList" onchange="window.location.href = SearchAndSort()">
+                        <option selected disabled>Sắp xếp theo</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-az">Mã loại người dùng (A-Z)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=maloainguoidung-za">Mã loại người dùng (Z-A)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-az">Tên loại người dùng (A-Z)</option>
+                        <option value="/Webmaster/LoaiNguoiDung/Sort?sortorder=tenloainguoidung-za">Tên loại người dùng (Z-A)</option>
+                    </select>
+                </div>
+            </div>*@
+            <!-------------------------------------------------------- SEARCH BAR ---------------------------------------------------------->
+            <div class="col-lg-3">
+                <form asp-controller="Product" asp-action="Search" method="get">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" id="searchList" placeholder="Tìm kiếm..." name="search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-------------------------------------------------------- MAIN TABLE ---------------------------------------------------------->
+        </div>
+        <br />
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã SP</th>
+                    <th>Tên SP</th>
+                    <th>Chi Tiết</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Ảnh</th>
+                    <th>Hiển Thị </th>
+                    <th>Tình Trạng </th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody class="body-content">
+                @foreach (var item in Model)
+                {
+                    <tr class="odd gradeX">
+                        <td class="item-ProductID">@item.ProductId</td>
+                        <td class="item-Name">@item.Name</td>
+                        <td class="item-Detail">@item.Detail</td>
+                        <td class="item-Price">@item.Price</td>
+                        <td class="item-Quantity">@item.Quantity</td>
+                        @*<td class="item-Image">@item.Image</td>*@
+
+                        <td class="item-Image"><img src="@Url.Content("~/HinhSanPham/" + @item.Image)" width="200" height="200" /></td>
+
+                        <td class="item-IsVisible">@item.IsVisible</td>
+                        <td class="item-IsActive">@item.IsActive</td>
+                        <td>
+                            <button class="btn btn-primary btnSuaProduct" type="button" data-toggle="modal" data-target="#suaModal">Sửa</button>
+                            <a asp-controller="Product" asp-action="DeleteProduct" asp-route-Productid="@item.ProductId" class="btn btn-danger">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- /.table-responsive -->
+        <!-- /.panel-body -->
+        <!-------------------------------------------------------- INSERT MODAL ---------------------------------------------------------->
+
+        <div class="modal fade" id="themModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="Product"  asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><b>SẢN PHÂM</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên Sản Phẩm</label>
+                                <input type="text" class="form-control" id="item-them-Name" name="item_them_Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Chi Tiết</label>
+                                <input type="text" class="form-control" id="item-them-Detail" name="item_them_Detail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Giá</label>
+                                <input type="text" class="form-control" id="item-them-Price" name="item_them_Price" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Số Lượng</label>
+                                <input type="text" class="form-control" id="item-them-Quantity" name="item_them_Quantity" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ảnh</label>
+                                <input type="file" class="form-control" id="item-them-Image" name="item_them_Image" multiple>
+                            </div>
+                            <div class="form-group">
+                                <label>Hiển Thị</label>
+                                <input type="text" class="form-control" id="item-them-IsVisible" name="item_them_IsVisible" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tình Trạng</label>
+                                <input type="text" class="form-control" id="item-them-IsActive" name="item_them_IsActive" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning" id="btnThemProduct">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------------------------------------- UPDATE MODAL ---------------------------------------------------------->
+        <div class="modal fade" id="suaModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form asp-controller="Product" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                            <h4 class="modal-title"><b>SẢN PHẨM</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Mã Tài Khoản</label>
+                                <input type="text" class="form-control" id="item-sua-ProductID" name="item_sua_ProductID" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên Sản Phẩm</label>
+                                <input type="text" class="form-control" id="item-sua-Name" name="item_sua_Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Chi Tiết</label>
+                                <input type="text" class="form-control" id="item-sua-Detail" name="item_sua_Detail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Giá</label>
+                                <input type="text" class="form-control" id="item-sua-Price" name="item_sua_Price" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Số Lượng</label>
+                                <input type="text" class="form-control" id="item-sua-Quantity" name="item_sua_Quantity" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Hiển Thị</label>
+                                <input type="text" class="form-control" id="item-sua-IsVisible" name="item_sua_IsVisible" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tình Trạng</label>
+                                <input type="text" class="form-control" id="item-sua-IsActive" name="item_sua_IsActive" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Sửa</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (ViewBag.ThongBao != null)
+        {
+            <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+            </script>
+        }
+
+
+        <script>
+            $(".btnSuaProduct").click(function () {
+                let ProductID = $(this).closest('tr').find('.item-ProductID').text();
+                let Name = $(this).closest('tr').find('.item-Name').text();
+                let Detail = $(this).closest('tr').find('.item-Detail').text();
+                let Price = $(this).closest('tr').find('.item-Price').text();
+                let Quantity = $(this).closest('tr').find('.item-Quantity').text();
+                let Image = $(this).closest('tr').find('.item-Image').text();
+                let IsVisible = $(this).closest('tr').find('.item-IsVisible').text();
+                let IsActive = $(this).closest('tr').find('.item-IsActive').text();
+
+                $("#item-sua-ProductID").val(ProductID.trim());
+                $("#item-sua-Name").val(Name.trim());
+                $("#item-sua-Detail").val(Detail.trim());
+                $("#item-sua-Price").val(Price.trim());
+                $("#item-sua-Quantity").val(Quantity.trim());
+                $("#item-sua-Image").val(Image.trim());
+                $("#item-sua-IsVisible").val(IsVisible.trim());
+                $("#item-sua-IsActive").val(IsActive.trim());
+
+            });
+        </script>
